@@ -38,7 +38,20 @@ object Dictionary {
    *
    */
   def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
-    ???
+    val ejecuteDict = Source.fromFile(filePath)  
+    .getLines().map{ line =>         
+      entityType match {       
+
+        case "Person" => new Person(line)
+        case "ProgrammingLanguage" => new ProgrammingLanguage(line)
+        case "Organization" => new Organization(line)
+        case "Place" => new Place(line)
+        case "University" => new University(line)
+      } 
+    }.toList
+      
+    source.close()  //Preguntar si hace falta, xq tiraba error (capaz es mi maquina)
+    ejecuteDict       
   }
 
   /**
@@ -50,6 +63,11 @@ object Dictionary {
    *
    */
   def loadAll(): List[NamedEntity] = {
-    ???
+
+    loadFromFile("data/people.txt", "Person") :::
+    loadFromFile("data/languages.txt", "ProgrammingLanguage") :::
+    loadFromFile("data/organizations.txt", "Organization") :::
+    loadFromFile("data/places.txt", "Place") :::
+    loadFromFile("data/universities.txt", "University")    
   }
 }
