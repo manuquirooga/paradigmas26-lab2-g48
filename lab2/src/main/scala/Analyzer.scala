@@ -35,7 +35,7 @@ object Analyzer {
    *                  )
    */
   def detectEntities(text: String, dictionary: List[NamedEntity]): List[NamedEntity] = {
-    ???
+        for(entity <- dictionary if text.contains(entity.text)) yield entity
   }
 
   /**
@@ -60,7 +60,9 @@ object Analyzer {
    *                 )
    */
   def countByType(entities: List[NamedEntity]): Map[String, Int] = {
-    ???
+    entities.groupBy(_.entityType).map{ 
+      case(entType, listaValores) =>
+        (entType, listaValores.size)}
   }
 
   // EJERCICIO ESTRELLA
