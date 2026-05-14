@@ -42,4 +42,17 @@ object Main {
     //   3. Mostrar el resumen
 
   }
+
+
+   // --- PUNTO ESTRELLA ---
+    val statsJerarquicas = Analyzer.jerarquia(allDetected)
+
+    println("\n=== Estadísticas Jerárquicas ===")
+    // Mostramos los resultados con un poquito de "sangría" (espacios) para que quede lindo
+    println(s"Technology: ${statsJerarquicas.getOrElse("Technology", 0)}")
+    println(s"ProgrammingLanguage: ${statsJerarquicas.getOrElse("ProgrammingLanguage", 0)}")
+    println(s"Organization: ${statsJerarquicas.getOrElse("Organization", 0)}")
+    println(s"University: ${statsJerarquicas.getOrElse("University", 0)}")
+    println(s"Person: ${statsJerarquicas.getOrElse("Person", 0)}")
 }
+

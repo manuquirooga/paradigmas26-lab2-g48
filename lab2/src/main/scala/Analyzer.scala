@@ -62,4 +62,25 @@ object Analyzer {
   def countByType(entities: List[NamedEntity]): Map[String, Int] = {
     ???
   }
+
+  // EJERCICIO ESTRELLA
+
+  def jerarquia(entities: List[NamedEntity]): Map[String, Int] = {
+  // 1. Definimos los nombres de las categorías que queremos en el informe
+  val categorias = List("Technology", "ProgrammingLanguage", "Organization", "University", "Person")
+
+  categorias.map { cat =>
+      val cantidad = entities.count {
+        // Si la entidad es un lenguaje, suma para "ProgrammingLanguage" Y para "Technology"
+        case _: ProgrammingLanguage => cat == "ProgrammingLanguage" || cat == "Technology"
+      
+        // Si la entidad es una universidad, suma para "University" Y para "Organization"
+       case _: University => cat == "University" || cat == "Organization"
+      
+        // Para el resto (Personas, Organizaciones puras), comparamos el nombre del tipo
+       case e => e.entityType == cat
+      }
+    cat -> cantidad
+    }.toMap
+  }
 }
