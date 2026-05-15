@@ -38,20 +38,15 @@ object Dictionary {
    *
    */
   def loadFromFile(filePath: String, entityType: String): List[NamedEntity] = {
-    val ejecuteDict = Source.fromFile(filePath)  
-    .getLines().map{ line =>         
-      entityType match {       
-
-        case "Person" => new Person(line)
-        case "ProgrammingLanguage" => new ProgrammingLanguage(line)
-        case "Organization" => new Organization(line)
-        case "Place" => new Place(line)
-        case "University" => new University(line)
-      } 
-    }.toList
-      
-    source.close()  //Preguntar si hace falta, xq tiraba error (capaz es mi maquina)
-    ejecuteDict       
+    val lines = FileIO.readLines(filePath)//Leo el archivo linea por linea
+    lines.map{name => entityType match { //cada linea se convierte en una instancia de la clase segun entityType
+        case "Person" => new Person(name)
+        case "University" => new University(name)
+        case "ProgrammingLanguage" => new ProgrammingLanguage(name)
+        case "Organization" => new Organization(name)
+        case "Place" => new Place(name)
+      }
+    }      
   }
 
   /**
